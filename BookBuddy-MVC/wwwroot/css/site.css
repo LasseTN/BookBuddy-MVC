@@ -16,3 +16,13 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.hcf-bp-center {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100vw; 
+    height: 100vh; 
+    margin-left: calc(-50vw + 50%); /* Centrer sektionen ved at justere venstre margin */
+}
+
