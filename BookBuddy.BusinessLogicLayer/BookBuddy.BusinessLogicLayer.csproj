@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BookBuddy.ModelLayer\BookBuddy.ModelLayer.csproj" />
+    <ProjectReference Include="..\BookBuddy.ServiceLayer\BookBuddy.ServiceLayer.csproj" />
+  </ItemGroup>
+
 </Project>
