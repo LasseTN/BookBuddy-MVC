@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace BookBuddy.BusinessLogicLayer.Interface {
     public interface IBookControl {
-        Task<IEnumerable<Book>> GetAllBooksAsync();
-        Task<Book> GetBookAsync(int id);
-        Task CreateBookAsync(Book book);
-        Task UpdateBookAsync(Book book);
-        Task DeleteBookAsync(int id);
+        Task<IEnumerable<Book>> GetAllBooks();
+        Task<Book> GetBook(int id);
+        Task CreateBook(Book book);
+        Task UpdateBook(Book book);
+        Task DeleteBook(int id);
     }
 }

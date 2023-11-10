@@ -1,3 +1,5 @@
+using BookBuddy.BusinessLogicLayer.Interface;
+using BookBuddy.BusinessLogicLayer;
 using BookBuddy.ServiceLayer;
 using BookBuddy.ServiceLayer.Interface;
 using BookBuddy_MVC.Data;
@@ -14,8 +16,7 @@ namespace BookBuddy_MVC {
             try {
                 var builder = WebApplication.CreateBuilder(args);
 
-                // Use Serilog for logging in the application
-                builder.Host.UseSerilog();
+
 
                 // Add services to the container.
                 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
@@ -31,7 +32,10 @@ namespace BookBuddy_MVC {
                 builder.Services.AddControllersWithViews();
 
                 // Mine services.
-                builder.Services.AddTransient<IServiceConnection, ServiceConnection>();
+
+                builder.Services.AddTransient<ServiceConnection>();
+                builder.Services.AddTransient<IBookControl, BookControl>();
+                builder.Services.AddTransient<IBookAccess, BookAccess>();
 
                 // Initialize Serilog
                 Log.Logger = new LoggerConfiguration()
@@ -41,6 +45,9 @@ namespace BookBuddy_MVC {
                     .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
                     .WriteTo.File(new CompactJsonFormatter(), "Logs/APILog-.json", rollingInterval: RollingInterval.Day)
                     .CreateLogger();
+
+                // Use Serilog for logging in the application
+                builder.Host.UseSerilog();
 
                 var app = builder.Build();
 

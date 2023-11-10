@@ -22,9 +22,27 @@ namespace BookBuddy.ServiceLayer {
             _logger = logger;
         }
 
-        public Task<IEnumerable<Book>> GetAllBooks() {
-            throw new NotImplementedException();
+        public async Task<IEnumerable<Book>> GetAllBooks() {
+            List<Book> foundBooks = new List<Book>();
+            var fullUrl = $"{_serviceConnection.BaseUrl.TrimEnd('/')}/Book"; // Ensure this matches the API route
+
+            if (_serviceConnection != null) {
+                try {
+                    _serviceConnection.UseUrl = fullUrl;
+                    var response = await _serviceConnection.CallServiceGet();
+                    if (response != null && response.IsSuccessStatusCode) {
+                        var content = await response.Content.ReadAsStringAsync();
+                        foundBooks = JsonConvert.DeserializeObject<List<Book>>(content);
+                    } else {
+                        _logger.LogError($"Failed to retrieve books. Status code: {response.StatusCode}");
+                    }
+                } catch (Exception ex) {
+                    _logger.LogError($"An error occurred while fetching books: {ex.Message}");
+                }
+            }
+            return foundBooks;
         }
+
 
         public Task<Book> GetBook(int id) {
             throw new NotImplementedException();
