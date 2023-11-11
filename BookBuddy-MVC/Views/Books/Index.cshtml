@@ -11,10 +11,14 @@
         </div>
     </div>
 
+
+
     <p>
         <a asp-action="Create">Create New</a>
     </p>
     <table class="table">
+        
+
         <thead>
             <tr>
                 <th>@Html.DisplayNameFor(model => model.BookId)</th>
@@ -37,7 +41,7 @@
                     <td>@Html.DisplayFor(modelItem => item.IsbnNo)</td>
                     <td>@Html.DisplayFor(modelItem => item.Status)</td>
                     <td>
-                        <img src="@item.ImageURL" alt="Book Cover" style="width:100px; height:auto; cursor:pointer;" data-bs-toggle="modal" 
+                        <img src="@item.ImageURL" alt="Book Cover" style="width:40px; height:auto; cursor:pointer;" data-bs-toggle="modal" 
                         data-bs-target="#imageModal" onclick="setImageInModal('@item.ImageURL')">
                     </td>
                     <td>

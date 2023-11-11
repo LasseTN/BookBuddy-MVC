@@ -26,5 +26,7 @@ body {
     margin-left: calc(-50vw + 50%); /* Centrer sektionen ved at justere venstre margin */
 }
 
-
+.custom-background {
+    background-color: #f0f0f0; /* Erstat med den farvekode, du ønsker */
+}
 

@@ -1,0 +1,64 @@
+﻿@model BookBuddy_MVC.Models.Book
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-md-11 col-lg-9 col-xl-7 col-xxl-6 text-center text-dark">
+            <h1 class="display-3 fw-bold mb-3">Add new books</h1>
+        </div>
+    </div>
+<h1>Create</h1>
+
+<h4>Book</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoOfPages" class="control-label"></label>
+                <input asp-for="NoOfPages" class="form-control" />
+                <span asp-validation-for="NoOfPages" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsbnNo" class="control-label"></label>
+                <input asp-for="IsbnNo" class="form-control" />
+                <span asp-validation-for="IsbnNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageURL" class="control-label"></label>
+                <input asp-for="ImageURL" class="form-control" />
+                <span asp-validation-for="ImageURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
