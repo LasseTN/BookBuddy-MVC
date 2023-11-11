@@ -3,76 +3,82 @@
 @{
     ViewData["Title"] = "Index";
 }
+
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-12 col-md-11 col-lg-9 col-xl-7 col-xxl-6 text-center text-dark">
             <h1 class="display-3 fw-bold mb-3">Browse books</h1>
         </div>
     </div>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.BookId)</th>
+                <th>@Html.DisplayNameFor(model => model.Title)</th>
+                <th>@Html.DisplayNameFor(model => model.Author)</th>
+                <th>@Html.DisplayNameFor(model => model.NoOfPages)</th>
+                <th>@Html.DisplayNameFor(model => model.IsbnNo)</th>
+                <th>@Html.DisplayNameFor(model => model.Status)</th>
+                <th>@Html.DisplayNameFor(model => model.ImageURL)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.BookId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Author)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NoOfPages)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IsbnNo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                    <td>
+                        <img src="@item.ImageURL" alt="Book Cover" style="width:100px; height:auto; cursor:pointer;" data-bs-toggle="modal" 
+                        data-bs-target="#imageModal" onclick="setImageInModal('@item.ImageURL')">
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id=item.BookId }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.BookId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.BookId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
-<h1>Index</h1>
+<!-- Bootstrap modal for displaying images, with a header and close button. The image is set when the modal is triggered. -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Book Cover</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" class="img-fluid" alt="Book Cover" />
+            </div>
+        </div>
+    </div>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.BookId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NoOfPages)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsbnNo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageURL)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NoOfPages)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsbnNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageURL)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+<!-- Script references for jQuery and Bootstrap necessary for modal functionality.
+     A custom script sets the clicked book cover image source for the modal. -->
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function setImageInModal(imageUrl) {
+            var modalImage = document.getElementById('modalImage');
+            modalImage.src = imageUrl;
+            modalImage.alt = 'Large book cover';
+        }
+    </script>
 }
-    </tbody>
-</table>
+
+<!-- Bootstrap CSS reference in the <head> section of your layout file -->
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />

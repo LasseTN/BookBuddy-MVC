@@ -1,15 +1,20 @@
 ﻿using Microsoft.CodeAnalysis;
+using System.ComponentModel;
 
 namespace BookBuddy_MVC.Models {
-    public class Book { 
+    public class Book {
+        [DisplayName("Id")]
         public int BookId { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public Genre? Genre { get; set; }
+        [DisplayName("Pages")]
         public int NoOfPages { get; set; }
+        [DisplayName("ISBN")]
         public string IsbnNo { get; set; }
         public Location? Location { get; set; }
         public string Status { get; set; }
+        [DisplayName("Book cover")]
         public string ImageURL { get; set; }
 
         public Book() { }
