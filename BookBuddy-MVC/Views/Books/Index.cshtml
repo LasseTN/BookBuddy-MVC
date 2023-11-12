@@ -24,9 +24,11 @@
                 <th>@Html.DisplayNameFor(model => model.BookId)</th>
                 <th>@Html.DisplayNameFor(model => model.Title)</th>
                 <th>@Html.DisplayNameFor(model => model.Author)</th>
+                <th>@Html.DisplayNameFor(model => model.Genre)</th>
                 <th>@Html.DisplayNameFor(model => model.NoOfPages)</th>
                 <th>@Html.DisplayNameFor(model => model.IsbnNo)</th>
                 <th>@Html.DisplayNameFor(model => model.Status)</th>
+                <th>@Html.DisplayNameFor(model => model.Location)</th>
                 <th>@Html.DisplayNameFor(model => model.ImageURL)</th>
                 <th></th>
             </tr>
@@ -37,9 +39,11 @@
                     <td>@Html.DisplayFor(modelItem => item.BookId)</td>
                     <td>@Html.DisplayFor(modelItem => item.Title)</td>
                     <td>@Html.DisplayFor(modelItem => item.Author)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Genre.GenreName)</td>
                     <td>@Html.DisplayFor(modelItem => item.NoOfPages)</td>
                     <td>@Html.DisplayFor(modelItem => item.IsbnNo)</td>
                     <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Location.LocationName)</td>
                     <td>
                         <img src="@item.ImageURL" alt="Book Cover" style="width:40px; height:auto; cursor:pointer;" data-bs-toggle="modal" 
                         data-bs-target="#imageModal" onclick="setImageInModal('@item.ImageURL')">
