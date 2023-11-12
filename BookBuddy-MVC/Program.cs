@@ -36,6 +36,11 @@ namespace BookBuddy_MVC {
                 builder.Services.AddTransient<ServiceConnection>();
                 builder.Services.AddTransient<IBookControl, BookControl>();
                 builder.Services.AddTransient<IBookAccess, BookAccess>();
+                builder.Services.AddHttpClient("API", client =>
+                {
+                    client.BaseAddress = new Uri("https://localhost:7199/api/"); // Replace with your actual API base URL
+                });
+
 
                 // Initialize Serilog
                 Log.Logger = new LoggerConfiguration()

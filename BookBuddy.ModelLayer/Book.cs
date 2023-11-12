@@ -1,10 +1,15 @@
 ﻿using Microsoft.CodeAnalysis;
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace BookBuddy_MVC.Models {
     public class Book {
         [DisplayName("Id")]
         public int BookId { get; set; }
+        [JsonPropertyName("genreId")]
+        public int? GenreId { get; set; }
+        [JsonPropertyName("loactionId")]
+        public int? LocationId { get; set; } 
         public string Title { get; set; }
         public string Author { get; set; }
         public Genre? Genre { get; set; }

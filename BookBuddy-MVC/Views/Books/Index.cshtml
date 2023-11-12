@@ -44,6 +44,7 @@
                     <td>@Html.DisplayFor(modelItem => item.IsbnNo)</td>
                     <td>@Html.DisplayFor(modelItem => item.Status)</td>
                     <td>@Html.DisplayFor(modelItem => item.Location.LocationName)</td>
+
                     <td>
                         <img src="@item.ImageURL" alt="Book Cover" style="width:40px; height:auto; cursor:pointer;" data-bs-toggle="modal" 
                         data-bs-target="#imageModal" onclick="setImageInModal('@item.ImageURL')">

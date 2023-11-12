@@ -2,16 +2,54 @@
 using BookBuddy.ServiceLayer.Interface;
 using BookBuddy_MVC.Models;
 using BookBuddy.BusinessLogicLayer.Interface;
+using BookBuddy_MVC.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookBuddy_MVC.Controllers {
     public class BooksController : Controller {
 
         private readonly IBookControl _bookControl;
+        private readonly HttpClient _httpClient;
 
-
-        public BooksController(IBookControl bookControl) {
+        public BooksController(IHttpClientFactory clientFactory, IBookControl bookControl) {
+            _httpClient = clientFactory.CreateClient("API");
             _bookControl = bookControl;
         }
+
+
+        // GET: Books/Create
+        public async Task<IActionResult> Create() {
+            var genres = await _httpClient.GetFromJsonAsync<List<GenreViewModel>>("genre");
+            var locations = await _httpClient.GetFromJsonAsync<List<LocationViewModel>>("location");
+
+            ViewBag.GenreId = new SelectList(genres, "Id", "Name");
+            ViewBag.LocationId = new SelectList(locations, "Id", "Name");
+
+            return View();
+        }
+
+        // POST: Books/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Book inBook) {
+            if (!ModelState.IsValid) {
+                return View(inBook);
+            }
+            try {
+                var response = await _httpClient.PostAsJsonAsync("book", inBook);
+                if (response.IsSuccessStatusCode) {
+                    return RedirectToAction(nameof(Index));
+                } else {
+                    // Handle failure response
+                    ModelState.AddModelError(string.Empty, "Server error. Please contact an administrator.");
+                }
+            } catch (Exception ex) {
+                // Log the exception details here
+                ModelState.AddModelError(string.Empty, "An error occurred while creating the book.");
+            }
+            return View(inBook);
+        }
+
         // GET: BooksController
         public async Task<ActionResult> Index() {
             IEnumerable<Book> allBooks = await _bookControl.GetAllBooks();
@@ -23,10 +61,6 @@ namespace BookBuddy_MVC.Controllers {
             return View();
         }
 
-        // GET: BooksController/Create
-        public ActionResult Create() {
-            return View();
-        }
 
         // POST: BooksController/Create
         [HttpPost]
