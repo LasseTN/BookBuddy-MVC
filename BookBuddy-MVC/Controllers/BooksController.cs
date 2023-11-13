@@ -4,6 +4,7 @@ using BookBuddy_MVC.Models;
 using BookBuddy.BusinessLogicLayer.Interface;
 using BookBuddy_MVC.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using BookBuddy.Utils;
 
 namespace BookBuddy_MVC.Controllers {
     public class BooksController : Controller {
@@ -22,8 +23,16 @@ namespace BookBuddy_MVC.Controllers {
             var genres = await _httpClient.GetFromJsonAsync<List<GenreViewModel>>("genre");
             var locations = await _httpClient.GetFromJsonAsync<List<LocationViewModel>>("location");
 
-            ViewBag.GenreId = new SelectList(genres, "Id", "Name");
-            ViewBag.LocationId = new SelectList(locations, "Id", "Name");
+            ViewBag.GenreId = new SelectList(genres, "GenreId", "GenreName");
+            ViewBag.LocationId = new SelectList(locations, "LocationId", "LocationName");
+            
+            // Convert StatusEnum to SelectList
+            ViewBag.Status = Enum.GetValues(typeof(StatusEnum.Status))
+                .Cast<StatusEnum.Status>()
+                .Select(s => new SelectListItem {
+                    Text = s.ToString(),
+                    Value = ((int)s).ToString()
+                }).ToList();
 
             return View();
         }

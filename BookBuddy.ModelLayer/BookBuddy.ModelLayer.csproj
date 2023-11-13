@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BookBuddy.Utils\BookBuddy.Utils.csproj" />
+  </ItemGroup>
+
 </Project>

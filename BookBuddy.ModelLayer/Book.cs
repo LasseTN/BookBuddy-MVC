@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using BookBuddy.Utils;
+using Microsoft.CodeAnalysis;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
 
@@ -8,8 +9,8 @@ namespace BookBuddy_MVC.Models {
         public int BookId { get; set; }
         [JsonPropertyName("genreId")]
         public int? GenreId { get; set; }
-        [JsonPropertyName("loactionId")]
-        public int? LocationId { get; set; } 
+        [JsonPropertyName("locationId")]
+        public int? LocationId { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public Genre? Genre { get; set; }
@@ -18,7 +19,9 @@ namespace BookBuddy_MVC.Models {
         [DisplayName("ISBN")]
         public string IsbnNo { get; set; }
         public Location? Location { get; set; }
-        public string Status { get; set; }
+        [DisplayName("Status")]
+        [JsonPropertyName("status")]
+        public StatusEnum.Status Status { get; set; }
         [DisplayName("Book cover")]
         public string ImageURL { get; set; }
 
@@ -32,8 +35,8 @@ namespace BookBuddy_MVC.Models {
             NoOfPages = noOfPages;
             IsbnNo = isbnNo;
             Location = location;
-            Status = status;
             ImageURL = imageURL;
+
         }
     }
 }
